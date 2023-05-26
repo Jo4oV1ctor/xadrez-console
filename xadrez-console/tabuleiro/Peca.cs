@@ -17,6 +17,9 @@ namespace tabuleiro
             this.qtdMovimento = 0;
         }
 
-
+        public void incrementarQuantidadeMovimento()
+        {
+            qtdMovimento++;
+        }
     }
 }
