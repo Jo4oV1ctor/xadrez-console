@@ -1,36 +1,34 @@
 ﻿using tabuleiro;
 using xadrez;
+using xadrez_console;
 
-
-namespace xadrez_console
+try
 {
-    class program
+    PartidaDeXadrez partida = new PartidaDeXadrez();
+
+    while (!partida.terminada)
     {
-        static void Main(string[] args)
-        {
-            try
-            {
-                PartidaDeXadrez partida = new PartidaDeXadrez();
+        Console.Clear();
+        Tela.imprimirTabuleiro(partida.tab);
 
-                while (!partida.terminada)
-                {
-                    Console.Clear();
-                    Tela.imprimirTabuleiro(partida.tab);
+        Console.Write("Origem: ");
+        Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
 
-                    Console.Write("Origem: ");
-                    Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
-                    Console.Write("Destino: ");
-                    Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+        bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
 
-                    partida.executaMovimento(origem, destino);
-                }
+        Console.Clear();
+        Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis);
 
-                
-            }
-            catch (TabuleiroException e) 
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
+        Console.WriteLine();
+        Console.Write("Destino: ");
+        Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+
+        partida.executaMovimento(origem, destino);
     }
+
+
+}
+catch (TabuleiroException e)
+{
+    Console.WriteLine(e.Message);
 }
